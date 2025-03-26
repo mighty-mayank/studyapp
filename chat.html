@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        #chatbox {
+            width: 90%;
+            max-width: 400px;
+            height: 400px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+            background: white;
+            margin: auto;
+            border-radius: 8px;
+        }
+        input, button {
+            width: 90%;
+            max-width: 400px;
+            padding: 10px;
+            margin: 10px auto;
+            display: block;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>AI Chat</h2>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Ask something...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        async function sendMessage() {
+            let userText = document.getElementById("userInput").value;
+            if (!userText.trim()) return;  // Ignore empty input
+
+            let chatbox = document.getElementById("chatbox");
+            chatbox.innerHTML += `<p><b>You:</b> ${userText}</p>`;
+            document.getElementById("userInput").value = "";
+
+            let apiKey = AIzaSyAKmdJbku7_FO29Djojn4AkmrEOhxz4NEw;  // 🔴 Replace with your real API key
+            let apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                let response = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        "contents": [{ "parts": [{ "text": userText }] }]
+                    })
+                });
+
+                let data = await response.json();
+                let aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't understand that.";
+                
+                chatbox.innerHTML += `<p><b>AI:</b> ${aiReply}</p>`;
+                chatbox.scrollTop = chatbox.scrollHeight;  // Auto-scroll to latest message
+            } catch (error) {
+                chatbox.innerHTML += `<p><b>AI:</b> Error fetching response.</p>`;
+                console.error("Error:", error);
+            }
+        }
+    </script>
+
+</body>
+</html>
