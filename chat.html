@@ -49,12 +49,13 @@
     <div id="chatbox"></div>
     <input type="text" id="userInput" placeholder="Ask something...">
     <button onclick="sendMessage()">Send</button>
+    <script src="chat.js"></script>
 
     <script>
         async function sendMessage() {
             let userText = document.getElementById("userInput").value;
             if (!userText.trim()) return;  // Ignore empty input
-
+            
             let chatbox = document.getElementById("chatbox");
             chatbox.innerHTML += `<p><b>You:</b> ${userText}</p>`;
             document.getElementById("userInput").value = "";
