@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Study App</title>
     <style>
+        .error {
+    color: red;
+    font-weight: bold;
+    display: none; /* Hidden by default */
+}
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -68,6 +74,8 @@
         <input type="text" id="username" placeholder="Enter Username">
         <input type="password" id="password" placeholder="Enter Password">
         <button class="button" onclick="login()">Login</button>
+        <p class="error" id="errorMsg">Invalid credentials. Try again.</p>
+
     </div>
 
     <script>
@@ -85,7 +93,8 @@
                 localStorage.setItem("loggedIn", "true");
                 window.location.href = "index.html";
             } else {
-                alert("Wrong password or username !");
+                document.getElementById("errorMsg").style.display = "block";
+
             }
         }
     </script>
