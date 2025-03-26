@@ -15,7 +15,6 @@
             justify-content: center;
             height: 100vh;
             background-color: #f5f5f5;
-            position: relative;
         }
         .container {
             text-align: center;
@@ -47,25 +46,20 @@
         .button:hover {
             background: #0056b3;
         }
-        /* Logout Button */
-        .logout-button {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
+        .logout-btn {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
             padding: 10px 15px;
-            font-size: 16px;
-            color: white;
             background: red;
+            color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-        }
-        .logout-button:hover {
-            background: darkred;
         }
     </style>
 </head>
-<body>
+<body onload="checkLogin()">
 
     <div class="container">
         <h1 id="welcomeMessage">Welcome</h1>
@@ -76,22 +70,25 @@
         <h1>This app is made by Mayank</h1>
     </div>
 
-    <!-- Logout Button -->
-    <button class="logout-button" onclick="logout()">Logout</button>
+    <button class="logout-btn" onclick="logout()">Logout</button>
 
     <script>
-        // Check if the user is logged in
-        const username = localStorage.getItem("loggedInUser");
-        if (username) {
-            document.getElementById("welcomeMessage").textContent = `Welcome, ${username}`;
-        } else {
-            window.location.href = "login.html"; // Redirect if not logged in
+        function checkLogin() {
+            const username = localStorage.getItem("username");
+            const sessionId = localStorage.getItem("sessionId");
+            const storedSessionId = sessionStorage.getItem("activeSession");
+
+            if (!username || sessionId !== storedSessionId) {
+                window.location.href = "login.html";
+            } else {
+                document.getElementById("welcomeMessage").innerText = "Welcome, " + username;
+            }
         }
 
-        // Logout function
         function logout() {
-            localStorage.removeItem("loggedIn");
-            localStorage.removeItem("loggedInUser");
+            localStorage.removeItem("username");
+            localStorage.removeItem("sessionId");
+            sessionStorage.removeItem("activeSession");
             window.location.href = "login.html";
         }
     </script>

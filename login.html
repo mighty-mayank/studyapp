@@ -8,8 +8,9 @@
         .error {
             color: red;
             font-weight: bold;
-            display: none; /* Hidden by default */
+            display: none;
         }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -31,7 +32,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .logo {
-            width: 200px; /* Adjust size as needed */
+            width: 200px;
             height: auto;
             margin-bottom: 20px;
         }
@@ -66,9 +67,7 @@
 <body>
 
     <div class="container">
-        <!-- App Logo -->
         <img src="logo.png" alt="App Logo" class="logo"> 
-        
         <h1>Hello, Please login</h1>
         <input type="text" id="username" placeholder="Enter Username">
         <input type="password" id="password" placeholder="Enter Password">
@@ -78,17 +77,21 @@
 
     <script>
         const users = {
-            "Mayank": "1234",
-            "Hitarth": "1234"
+            "mayank": "1234",
+            "admin": "adminpass",
+            "user1": "password1"
         };
 
         function login() {
-            const username = document.getElementById("username").value.trim();
-            const password = document.getElementById("password").value.trim();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
             if (users[username] && users[username] === password) {
-                localStorage.setItem("loggedIn", "true");
-                localStorage.setItem("loggedInUser", username); // Store username
+                const sessionId = new Date().getTime(); // Unique session ID
+                localStorage.setItem("username", username);
+                localStorage.setItem("sessionId", sessionId);
+                sessionStorage.setItem("activeSession", sessionId); // Store in sessionStorage
+
                 window.location.href = "index.html";
             } else {
                 document.getElementById("errorMsg").style.display = "block";
