@@ -46,17 +46,36 @@
         .button:hover {
             background: #0056b3;
         }
+        .logout {
+            background: red;
+        }
+        .logout:hover {
+            background: darkred;
+        }
     </style>
 </head>
 <body>
+
+    <script>
+        // Redirect to login if user is not logged in
+        if (localStorage.getItem("loggedIn") !== "true") {
+            window.location.href = "login.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn"); // Clear login status
+            window.location.href = "login.html"; // Redirect to login page
+        }
+    </script>
 
     <div class="container">
         <h1>Welcome, Mayank Dave</h1>
         <a href="learn.html" class="button">Learn</a>
         <a href="result.html" class="button">Result</a>
         <a href="test.html" class="button">Test</a>
-        <a href="chat.html" class="button">AI Chat</a>  <!-- AI Chat Button Added -->
-        <h1>this app is made by mayank</h1>
+        <a href="chat.html" class="button">AI Chat</a>  <!-- AI Chat Button -->
+        <button class="button logout" onclick="logout()">Logout</button>  <!-- Logout Button -->
+        <h1>This app is made by Mayank</h1>
     </div>
 
 </body>
