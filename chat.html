@@ -59,7 +59,7 @@
             chatbox.innerHTML += `<p><b>You:</b> ${userText}</p>`;
             document.getElementById("userInput").value = "";
 
-            let apiKey = AIzaSyAKmdJbku7_FO29Djojn4AkmrEOhxz4NEw;  // 🔴 Replace with your real API key
+            let apiKey = "AIzaSyAKmdJbku7_FO29Djojn4AkmrEOhxz4NEw";  // 🔴 Replace with your real API key
             let apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
             try {
