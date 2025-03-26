@@ -25,6 +25,11 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        .logo {
+            width: 200px; /* Adjust size as needed */
+            height: auto;
+            margin-bottom: 20px;
+        }
         h1 {
             font-size: 24px;
             margin-bottom: 20px;
@@ -35,11 +40,12 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
         }
         .button {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
             font-size: 18px;
             color: white;
             background: #007BFF;
@@ -50,30 +56,28 @@
         .button:hover {
             background: #0056b3;
         }
-        .error {
-            color: red;
-            display: none;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Login</h1>
-        <input type="text" id="username" placeholder="Enter ID">
+        <!-- App Logo -->
+        <img src="logo.png" alt="App Logo" class="logo"> 
+        
+        <h1>Hello, Please login</h1>
+        <input type="text" id="username" placeholder="Enter Username">
         <input type="password" id="password" placeholder="Enter Password">
         <button class="button" onclick="login()">Login</button>
-        <p class="error" id="errorMsg">Invalid credentials. Try again.</p>
     </div>
 
     <script>
-        function login() {
-            const users = {
-                "mayank": "1234",
-                "admin": "adminpass"
-            };
+        const users = {
+            "mayank": "1234",
+            "admin": "adminpass",
+            "user1": "password1"
+        };
 
+        function login() {
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
@@ -81,7 +85,7 @@
                 localStorage.setItem("loggedIn", "true");
                 window.location.href = "index.html";
             } else {
-                document.getElementById("errorMsg").style.display = "block";
+                alert("Wrong password or username !");
             }
         }
     </script>
