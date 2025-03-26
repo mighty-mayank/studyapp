@@ -47,20 +47,20 @@
         .button:hover {
             background: #0056b3;
         }
-        /* Logout button styles */
-        .logout-btn {
-            position: fixed;
+        /* Logout Button */
+        .logout-button {
+            position: absolute;
             bottom: 20px;
             right: 20px;
-            background: red;
-            color: white;
             padding: 10px 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
             font-size: 16px;
+            color: white;
+            background: red;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        .logout-btn:hover {
+        .logout-button:hover {
             background: darkred;
         }
     </style>
@@ -68,19 +68,30 @@
 <body>
 
     <div class="container">
-        <h1>Welcome, Mayank Dave</h1>
+        <h1 id="welcomeMessage">Welcome</h1>
         <a href="learn.html" class="button">Learn</a>
         <a href="result.html" class="button">Result</a>
         <a href="test.html" class="button">Test</a>
-        <a href="chat.html" class="button">AI Chat</a>  <!-- AI Chat Button Added -->
+        <a href="chat.html" class="button">AI Chat</a>  
+        <h1>This app is made by Mayank</h1>
     </div>
 
     <!-- Logout Button -->
-    <button class="logout-btn" onclick="logout()">Logout</button>
+    <button class="logout-button" onclick="logout()">Logout</button>
 
     <script>
+        // Check if the user is logged in
+        const username = localStorage.getItem("loggedInUser");
+        if (username) {
+            document.getElementById("welcomeMessage").textContent = `Welcome, ${username}`;
+        } else {
+            window.location.href = "login.html"; // Redirect if not logged in
+        }
+
+        // Logout function
         function logout() {
             localStorage.removeItem("loggedIn");
+            localStorage.removeItem("loggedInUser");
             window.location.href = "login.html";
         }
     </script>

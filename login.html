@@ -6,11 +6,10 @@
     <title>Login - Study App</title>
     <style>
         .error {
-    color: red;
-    font-weight: bold;
-    display: none; /* Hidden by default */
-}
-
+            color: red;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -75,26 +74,24 @@
         <input type="password" id="password" placeholder="Enter Password">
         <button class="button" onclick="login()">Login</button>
         <p class="error" id="errorMsg">Invalid credentials. Try again.</p>
-
     </div>
 
     <script>
         const users = {
-            "mayank": "1234",
-            "admin": "adminpass",
-            "user1": "password1"
+            "Mayank": "1234",
+            "Hitarth": "1234"
         };
 
         function login() {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
 
             if (users[username] && users[username] === password) {
                 localStorage.setItem("loggedIn", "true");
+                localStorage.setItem("loggedInUser", username); // Store username
                 window.location.href = "index.html";
             } else {
                 document.getElementById("errorMsg").style.display = "block";
-
             }
         }
     </script>
