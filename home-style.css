@@ -68,8 +68,10 @@ h1 {
 }
 
 .pfp {
-    width: 10px;  /* Adjust size as needed */
-    height: 100px;
+    width: 100px;  /* Ensure fixed size */
+    height: 100px; /* Ensure fixed size */
     border-radius: 50%;
     border: 3px solid #007bff; /* Blue outline */
+    object-fit: cover; /* Prevents distortion */
 }
+
