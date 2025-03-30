@@ -10,6 +10,13 @@
 <body>
 
     <div class="container">
+        <!-- Clickable Profile Picture Section -->
+        <div class="pfp-container">
+            <a href="profile.html">
+                <img src="profile.png" alt="Profile Picture" class="pfp">
+            </a>
+        </div>
+
         <h1 id="welcomeText">Welcome, User</h1>
         
         <div class="button-container">
@@ -31,23 +38,16 @@
             </a>
         </div>
 
-        <button class="logout" onclick="logout()">Logout</button>
+       
     </div>
 
     <script>
-        // Show logged-in user's name
         document.addEventListener("DOMContentLoaded", function () {
             const username = localStorage.getItem("username");
             if (username) {
                 document.getElementById("welcomeText").innerText = "Welcome, " + username;
             }
         });
-
-        function logout() {
-            localStorage.removeItem("loggedIn");
-            localStorage.removeItem("username");
-            window.location.href = "login.html";
-        }
     </script>
 
 </body>

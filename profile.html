@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Study App</title>
+    <link rel="stylesheet" href="profile-style.css">
+    <script src="profiledat.js"></script>
+    <script src="auth.js"></script>
+</head>
+<body>
+
+    <div class="profile-container">
+        <!-- Profile Picture -->
+        <div class="pfp-container">
+            <img src="profile.png" alt="Profile Picture" class="pfp">
+        </div>
+
+        <!-- Username Display -->
+        <h1 class="username" id="displayUsername">User</h1>
+
+        <!-- Profile Details Table -->
+        <table class="profile-table">
+            <tr>
+                <th>Name</th>
+                <td id="name">Loading...</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td id="age">Loading...</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td id="email">Loading...</td>
+            </tr>
+            <tr>
+                <th>Plan Type</th>
+                <td id="planType">Loading...</td>
+            </tr>
+        </table>
+
+        
+        <!-- Back to Home Button -->
+<button class="home-button" onclick="goHome()">Back to Home</button>
+
+<script>
+    function goHome() {
+        window.location.href = "index.html"; // Redirect to home
+    }
+</script>
+<!-- Logout Button -->
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        // Load user data from profiledat.js
+        document.addEventListener("DOMContentLoaded", function () {
+            const username = localStorage.getItem("username") || "Guest";
+            document.getElementById("displayUsername").innerText = username;
+
+            if (profileData[username]) {
+                document.getElementById("name").innerText = profileData[username].name;
+                document.getElementById("age").innerText = profileData[username].age;
+                document.getElementById("email").innerText = profileData[username].email;
+                document.getElementById("planType").innerText = profileData[username].planType;
+            } else {
+                document.getElementById("name").innerText = "Unknown";
+                document.getElementById("age").innerText = "-";
+                document.getElementById("email").innerText = "Not available";
+                document.getElementById("planType").innerText = "Basic";
+            }
+        });
+     
+        function logout() {
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+</html>
