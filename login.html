@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Study App</title>
-    <link rel="stylesheet" href="login-style.css">
+    <link rel="stylesheet" href="css/login-style.css">
 </head>
 <body>
 
     <div class="container">
         <!-- App Logo -->
-        <img src="logo.png" alt="App Logo" class="logo"> 
+        <img src="images/logo.png" alt="App Logo" class="logo"> 
         
         <h1>Hello, Please login</h1>
         <input type="text" id="username" placeholder="Enter Username">
         
         <div class="password-container">
             <input type="password" id="password" placeholder="Enter Password">
-            <img src="eyeclosed.png" id="togglePassword" class="eye-icon" onclick="togglePassword()">
+            <img src="images/eyeclosed.png" id="togglePassword" class="eye-icon" onclick="togglePassword()">
         </div>
         
         <button class="button" onclick="login()">Login</button>
@@ -52,10 +52,10 @@
             
             if (passwordField.type === "password") {
                 passwordField.type = "text";
-                toggleIcon.src = "eyeopen.png";
+                toggleIcon.src = "images/eyeopen.png";
             } else {
                 passwordField.type = "password";
-                toggleIcon.src = "eyeclosed.png";
+                toggleIcon.src = "images/eyeclosed.png";
             }
         }
     </script>
