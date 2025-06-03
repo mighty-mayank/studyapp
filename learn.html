@@ -3,7 +3,6 @@
 <head>
     <script src="javascript/auth.js"></script>
 
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study App - Learn</title>
@@ -35,16 +34,19 @@
         p {
             font-size: 18px;
         }
-        .back-button {
-            margin-top: 20px;
-            display: inline-block;
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-        }
-        .back-button:hover {
+.nav-button {
+    display: inline-block;
+    margin-top: 15px;
+    width: 60%;
+    text-align: center;
+    padding: 10px 15px;
+    background: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+        .nav-button:hover {
             background: #0056b3;
         }
     </style>
@@ -54,7 +56,12 @@
     <div class="container">
         <h1>Learn</h1>
         <p>Here you can find learning materials.</p>
-        <a href="index.html" class="back-button">Back to Home</a>
+
+        <!-- New Homework Button -->
+        <a href="homework.html" class="nav-button">Homework</a>
+
+        <!-- Existing Back to Home Button -->
+        <a href="index.html" class="nav-button">Back to Home</a>
     </div>
 
 </body>

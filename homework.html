@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Homework - StudyApp</title>
+<style>
+  /* Mobile app style container */
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .app-container {
+    background: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+    color: #000000;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+  }
+  select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1.5px solid #ccc;
+    font-size: 16px;
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 12px center / 16px 16px;
+    cursor: pointer;
+  }
+  select:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  button.go-button {
+  margin: 40px auto 0 auto; /* margin-top ~40px, centered horizontally */
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  max-width: 250px;  /* limits width */
+  width: 80%;        /* responsive width but less than 100% */
+  display: block;    /* so margin auto centers it */
+  text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  button.go-button:disabled {
+    background-color: #a0c4ff;
+    cursor: not-allowed;
+  }
+  button.go-button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+.back-home-button {
+    
+  margin: 10px auto 0 auto; /* margin-top ~40px, centered horizontally */
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  max-width: 250px;  /* limits width */
+  width: 80%;        /* responsive width but less than 100% */
+  display: block;    /* so margin auto centers it */
+  text-align: center;
+}
+.back-home-button:hover {
+  background: #0056b3;
+}
+
+.back-home-button:hover {
+  text-decoration: underline;
+}
+
+</style>
+</head>
+<body>
+
+<div class="app-container">
+  <h1>Homework</h1>
+
+  <label for="subject">Select Subject</label>
+  <select id="subject">
+    <option value="" disabled selected>Select subject</option>
+    <!-- Subjects will be dynamically populated -->
+  </select>
+
+  <label for="chapter">Select Chapter</label>
+  <select id="chapter" disabled>
+    <option value="" disabled selected>Select chapter</option>
+    <!-- Chapters will be dynamically populated -->
+  </select>
+
+  <button id="goBtn" class="go-button" disabled>Go</button>
+  <button id="backHomeBtn" class="back-home-button">Back to Home</button>
+</div>
+
+<script>
+  // Data structure for subjects, chapters, and links
+  const data = {
+    maths: {
+      name: "Maths",
+      chapters: {
+        ch1: { name: "Chapter 1", url: "https://sites.google.com/view/studyapphomework/mathch1" },
+        ch2: { name: "Chapter 2", url: "https://www.mathch2.com" }
+      }
+    },
+    socialstudies: {
+      name: "Social Studies",
+      chapters: {
+        ch5: { name: "Chapter 5", url: "https://www.socialstudiesch5.com" },
+        ch6: { name: "Chapter 6", url: "https://www.socialstudiesch6.com" }
+      }
+    }
+    // You can add more subjects and chapters here easily
+  };
+
+  const subjectSelect = document.getElementById("subject");
+  const chapterSelect = document.getElementById("chapter");
+  const goBtn = document.getElementById("goBtn");
+
+  // Populate subjects dropdown
+  function populateSubjects() {
+    for (const key in data) {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = data[key].name;
+      subjectSelect.appendChild(option);
+    }
+  }
+
+  // Populate chapters dropdown based on selected subject
+  function populateChapters(subjectKey) {
+    chapterSelect.innerHTML = '<option value="" disabled selected>Select chapter</option>';
+    if (!subjectKey || !data[subjectKey]) {
+      chapterSelect.disabled = true;
+      goBtn.disabled = true;
+      return;
+    }
+
+    const chapters = data[subjectKey].chapters;
+    for (const chKey in chapters) {
+      const option = document.createElement("option");
+      option.value = chKey;
+      option.textContent = chapters[chKey].name;
+      chapterSelect.appendChild(option);
+    }
+    chapterSelect.disabled = false;
+    goBtn.disabled = true;
+  }
+
+  // Update button disabled/enabled status based on selections
+  function updateGoButton() {
+    if (subjectSelect.value && chapterSelect.value) {
+      goBtn.disabled = false;
+    } else {
+      goBtn.disabled = true;
+    }
+  }
+
+  // Handle Go button click
+  goBtn.addEventListener("click", () => {
+    const subject = subjectSelect.value;
+    const chapter = chapterSelect.value;
+    if (subject && chapter) {
+      const url = data[subject].chapters[chapter].url;
+      window.location.href = url;
+    }
+  });
+
+  // When subject changes, update chapters
+  subjectSelect.addEventListener("change", () => {
+    populateChapters(subjectSelect.value);
+    updateGoButton();
+  });
+
+  // When chapter changes, update button state
+  chapterSelect.addEventListener("change", () => {
+    updateGoButton();
+  });
+
+  // Initialize
+  populateSubjects();
+  document.getElementById("backHomeBtn").addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+
+</script>
+
+</body>
+</html>
