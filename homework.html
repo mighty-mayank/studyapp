@@ -121,22 +121,21 @@
 <script>
   // Data structure for subjects, chapters, and links
   const data = {
-    maths: {
-      name: "Maths",
-      chapters: {
-        ch1: { name: "Chapter 1", url: "https://sites.google.com/view/studyapphomework/mathch1" },
-        ch2: { name: "Chapter 2", url: "https://www.mathch2.com" }
-      }
-    },
-    socialstudies: {
-      name: "Social Studies",
-      chapters: {
-        ch5: { name: "Chapter 5", url: "https://www.socialstudiesch5.com" },
-        ch6: { name: "Chapter 6", url: "https://www.socialstudiesch6.com" }
-      }
+  maths: {
+    name: "Maths",
+    chapters: {
+      ch1: { name: "Chapter 1", file: "mathch1.pdf" },
+      ch2: { name: "Chapter 2", file: "mathch2.pdf" }
     }
-    // You can add more subjects and chapters here easily
-  };
+  },
+  socialstudies: {
+    name: "Social Studies",
+    chapters: {
+      ch1: { name: "Chapter 1", file: "socch1.pdf" }
+    }
+  }
+};
+
 
   const subjectSelect = document.getElementById("subject");
   const chapterSelect = document.getElementById("chapter");
@@ -186,10 +185,12 @@ goBtn.addEventListener("click", () => {
   const subject = subjectSelect.value;
   const chapter = chapterSelect.value;
   if (subject && chapter) {
-    const url = data[subject].chapters[chapter].url;
-    location.replace(url);
+    const filename = data[subject].chapters[chapter].file; // e.g. "mathch1.pdf"
+    const viewerURL = `viewer.html?file=${encodeURIComponent(filename)}`;
+    window.location.href = viewerURL;
   }
 });
+
 
 
   // When subject changes, update chapters

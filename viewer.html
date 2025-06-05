@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+<iframe id="pdfIframe" src=""></iframe>
+
+<script>
+  // Get file name from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const fileName = urlParams.get('file');
+
+  if (fileName) {
+    const baseURL = "https://roaring-horse-6a323e.netlify.app/web/viewer.html";
+    const fullURL = `${baseURL}?file=/pdf/${encodeURIComponent(fileName)}`;
+    document.getElementById("pdfIframe").src = fullURL;
+  } else {
+    document.body.innerHTML = "<p style='text-align:center;'>No PDF specified.</p>";
+  }
+</script>
+
+</body>
+</html>
