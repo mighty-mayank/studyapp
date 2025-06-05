@@ -182,14 +182,15 @@
   }
 
   // Handle Go button click
-  goBtn.addEventListener("click", () => {
-    const subject = subjectSelect.value;
-    const chapter = chapterSelect.value;
-    if (subject && chapter) {
-      const url = data[subject].chapters[chapter].url;
-      window.location.href = url;
-    }
-  });
+goBtn.addEventListener("click", () => {
+  const subject = subjectSelect.value;
+  const chapter = chapterSelect.value;
+  if (subject && chapter) {
+    const url = data[subject].chapters[chapter].url;
+    location.replace(url);
+  }
+});
+
 
   // When subject changes, update chapters
   subjectSelect.addEventListener("change", () => {
