@@ -3,7 +3,7 @@
 <head>
   <script src="javascript/auth.js"></script>
   <meta charset="UTF-8">
-  <title>PDF Viewer</title>
+  <title>Quiz Viewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -20,19 +20,24 @@
 </head>
 <body>
 
-<iframe id="pdfIframe" src=""></iframe>
+<iframe id="quizIframe" src=""></iframe>
 
 <script>
-  // Get file name from URL
+  const links = {
+    mathquiz1: "https://forms.gle/8rq4MQPbSpSVYXZbA",
+    mathquiz2: "https://www.startpage.com/",
+    socialquiz: "https://search.brave.com/",
+    engquiz: "https://docs.google.com/forms/d/e/abc123/viewform"
+    // Add more here...
+  };
+
   const urlParams = new URLSearchParams(window.location.search);
   const fileName = urlParams.get('file');
 
-  if (fileName) {
-    const baseURL = "https://view-pdf.netlify.app/web/viewer.html";
-    const fullURL = `${baseURL}?file=/pdf/${encodeURIComponent(fileName)}`;
-    document.getElementById("pdfIframe").src = fullURL;
+  if (fileName && links[fileName]) {
+    document.getElementById("quizIframe").src = links[fileName];
   } else {
-    document.body.innerHTML = "<p style='text-align:center;'>No PDF specified.</p>";
+    document.body.innerHTML = "<p style='text-align:center;'>Invalid or missing quiz link.</p>";
   }
 </script>
 

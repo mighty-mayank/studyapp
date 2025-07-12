@@ -1,61 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="javascript/auth.js"></script>
-
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study App - Test</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #f5f5f5;
-        }
-        .container {
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 18px;
-        }
-        .back-button {
-            margin-top: 20px;
-            display: inline-block;
-            padding: 10px 15px;
-            background: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-        }
-        .back-button:hover {
-            background: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script> src="/javascript/auth.js"</script>
+  <title>Homework - StudyApp</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .app-container {
+      background: white;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #000;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1.5px solid #ccc;
+      font-size: 16px;
+      appearance: none;
+      background: url('data:image/svg+xml;utf8,<svg fill="%23666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 12px center / 16px 16px;
+      cursor: pointer;
+    }
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      max-width: 250px;
+      width: 80%;
+      display: block;
+      text-align: center;
+      margin: 10px auto 0 auto;
+      transition: background-color 0.3s ease;
+    }
+    button:disabled {
+      background-color: #a0c4ff;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
+  <div class="app-container">
+    <h1>Test</h1>
+    <label for="subject">Select Subject</label>
+    <select id="subject">
+      <option value="" disabled selected>Select subject</option>
+    </select>
 
-    <div class="container">
-        <h1>Test</h1>
-        <p>Start your test here.</p>
-        <a href="index.html" class="back-button">Back to Home</a>
-    </div>
+    <label for="chapter">Select Chapter</label>
+    <select id="chapter" disabled>
+      <option value="" disabled selected>Select chapter</option>
+    </select>
 
+    <button id="goBtn" disabled>Go</button>
+    <button onclick="window.location.href='index.html'">Back to Home</button>
+  </div>
+
+  <script>
+    const data = {
+      maths: {
+        name: "Maths",
+        chapters: {
+          quiz1: { name: "Quiz 1", link: "mathquiz1" },
+          quiz2: { name: "Quiz 2", link: "mathquiz2" }
+        }
+      },
+      social: {
+        name: "Social Studies",
+        chapters: {
+          quiz1: { name: "Quiz 1", link: "socialquiz" }
+        }
+      }
+    };
+
+    const subjectSelect = document.getElementById("subject");
+    const chapterSelect = document.getElementById("chapter");
+    const goBtn = document.getElementById("goBtn");
+
+    function populateSubjects() {
+      for (const key in data) {
+        const option = document.createElement("option");
+        option.value = key;
+        option.textContent = data[key].name;
+        subjectSelect.appendChild(option);
+      }
+    }
+
+    function populateChapters(subjectKey) {
+      chapterSelect.innerHTML = '<option value="" disabled selected>Select chapter</option>';
+      if (!subjectKey || !data[subjectKey]) {
+        chapterSelect.disabled = true;
+        goBtn.disabled = true;
+        return;
+      }
+      const chapters = data[subjectKey].chapters;
+      for (const chKey in chapters) {
+        const option = document.createElement("option");
+        option.value = chKey;
+        option.textContent = chapters[chKey].name;
+        chapterSelect.appendChild(option);
+      }
+      chapterSelect.disabled = false;
+      goBtn.disabled = true;
+    }
+
+    function updateGoButton() {
+      goBtn.disabled = !(subjectSelect.value && chapterSelect.value);
+    }
+
+    goBtn.addEventListener("click", () => {
+      const subject = subjectSelect.value;
+      const chapter = chapterSelect.value;
+      if (subject && chapter) {
+        const linkKey = data[subject].chapters[chapter].link; // e.g. "mathquiz1"
+        const viewerURL = `quiz.html?file=${encodeURIComponent(linkKey)}`;
+        window.location.href = viewerURL;
+      }
+    });
+
+    subjectSelect.addEventListener("change", () => {
+      populateChapters(subjectSelect.value);
+      updateGoButton();
+    });
+
+    chapterSelect.addEventListener("change", () => {
+      updateGoButton();
+    });
+
+    populateSubjects();
+  </script>
 </body>
 </html>
